@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- 依赖注入 -->
+ 	<bean id="customerDao" class="com.test.demo.CustomerDaoImpl"></bean>
+ 	<bean id="customerService" class="com.test.demo.CustomerServiceImpl">
+ 		<property name="customerDao" ref="customerDao"></property>
+ 	</bean>
+
+	<!-- 构造方法的依赖注入 属性标签<construtor-arg>-->
+	<bean id="car" class="com.test.demo1.Car">
+		<!-- <constructor-arg name="cname" value="奇瑞"> </constructor-arg>
+		<constructor-arg name="price" value="1234"> </constructor-arg> -->
+		
+		<constructor-arg index="0" value="奔驰"></constructor-arg>
+		<constructor-arg index="1" value="1234"></constructor-arg>
+	</bean>
+	
+	<!-- get/set方法的方式 ，属性标签<property>-->
+	<bean id="car1" class="com.test.demo1.Car1">
+		<property name="cname" value="自行车"></property>
+		<property name="price" value="1222"></property>
+	</bean>
+	
+	
+	<!-- 需要引用ref!!!!，上面的Car 属性标签<ref> -->
+	<bean id="person" class="com.test.demo1.Person">
+		<constructor-arg name="pname" value="美美"></constructor-arg>
+		<constructor-arg name="myCar" ref="car"></constructor-arg>
+	</bean>
+	
+	<bean id="user" class="com.test.demo2.User">
+		<!-- 注入数组 -->
+		<!-- 此处的name为数组属性的名称 -->
+		<property name="arrs">
+			<list>
+				<value>哈哈</value>
+				<value>嘿嘿</value>
+				<value>你好</value>
+			</list>
+		</property>
+		
+		<!-- 注入list -->
+		<property name="list">
+			<list>
+				<value>美美</value>
+				<value>小风</value>
+			</list>
+		</property>
+		
+		<!-- 注入map -->
+		<property name="map">
+			<map>
+				<entry key="名称" value="小明"></entry>
+			</map>
+		</property>
+			
+		<!--  -->	
+		<property name="pro">
+			<props>
+				<prop key="root">1234</prop>
+			</props>
+		</property>
+	</bean>
+	
+</beans>
